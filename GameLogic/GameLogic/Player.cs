@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameLogic
+﻿namespace GameLogic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Player
     {
         private readonly string rName;
-        private string mNotGonnaStay;
 
-        public Player(string rName, string mNotGonnaStay)
+        public Player(string rName)
         {
             this.rName = rName;
-            this.mNotGonnaStay = mNotGonnaStay;
         }
+
+        public string Name { get; set; }
     }
 }
