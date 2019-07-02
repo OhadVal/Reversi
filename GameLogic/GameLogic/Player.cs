@@ -19,5 +19,27 @@
         }
 
         public string Name { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var player = obj as Player;
+            return player != null &&
+                   rName == player.rName;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1970127302 + EqualityComparer<string>.Default.GetHashCode(rName);
+        }
+
+        public static bool operator ==(Player player1, Player player2)
+        {
+            return EqualityComparer<Player>.Default.Equals(player1, player2);
+        }
+
+        public static bool operator !=(Player player1, Player player2)
+        {
+            return !(player1 == player2);
+        }
     }
 }
