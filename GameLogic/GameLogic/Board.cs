@@ -20,6 +20,14 @@ namespace GameLogic
         public int Size { get;}
         public Square[,] MyBoard { get;}
 
+        public Square this[Move move]
+        {
+            get
+            {
+                return m_Board[move.Row, move.Column];
+            }
+        }
+
         #region Public Methods
 
         public void InitializeBoard(Player iPlayer1, Player iPlayer2)
@@ -119,9 +127,8 @@ namespace GameLogic
             return !isAbleToPlay;
         }
 
-        public bool PlayMove(Player iPlayer, Move iMove)
+        public void PlayMove(Player iPlayer, Move iMove)
         {
-            bool isMoveSuccessful = false;
             List<Move> possibleMoves = GetPossibleMoves(iPlayer);
             foreach (Move possibleMove in possibleMoves)
             {
@@ -129,10 +136,8 @@ namespace GameLogic
                 {
                     mBoard[iMove.Row, iMove.Column].Owner = iPlayer;
                     changeBoardByMove(iPlayer, iMove);
-                    isMoveSuccessful = true;
                 }
             }
-            return isMoveSuccessful;
         }      
 
         #endregion
