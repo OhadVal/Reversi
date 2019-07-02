@@ -20,5 +20,10 @@ namespace GameLogic
         public int Row { get; set; }       
 
         public int Column { get; set; }
+
+        public static Move operator +(Move i_Move, Move i_OtherMove)
+        {
+            return new Move(i_Move.Row + i_OtherMove.Row, i_Move.Column + i_OtherMove.Column);
+        }
     }
 }
