@@ -20,6 +20,8 @@ namespace GameLogic
         public int Size { get;}
         public Square[,] MyBoard { get;}
 
+        #region Public Methods
+
         public void InitializeBoard(Player iPlayer1, Player iPlayer2)
         {
             for (int i = 0; i < rBoardSize; i++)
@@ -96,6 +98,47 @@ namespace GameLogic
             return possibleMoves;
         }
 
+        public bool IsAbleToPlay(Player iPlayer)
+        {
+            const bool isAbleToPlay = true;
+            Move move = new Move(0, 0);            
+
+            for (int i = 0; i < rBoardSize; i++)
+            {
+                for (int j = 0; j < rBoardSize; j++)
+                {
+                    move.Row = i;
+                    move.Column = j;
+                    if (isMoveValid(iPlayer, move) && mBoard[move.Row, move.Column].IsEmpty())
+                    {
+                        return isAbleToPlay;
+                    }
+                }
+            }
+
+            return !isAbleToPlay;
+        }
+
+        public bool PlayMove(Player iPlayer, Move iMove)
+        {
+            bool isMoveSuccessful = false;
+            List<Move> possibleMoves = GetPossibleMoves(iPlayer);
+            foreach (Move possibleMove in possibleMoves)
+            {
+                if ((possibleMove.Row == iMove.Row) && (possibleMove.Column == iMove.Column))
+                {
+                    mBoard[iMove.Row, iMove.Column].Owner = iPlayer;
+                    changeBoardByMove(iPlayer, iMove);
+                    isMoveSuccessful = true;
+                }
+            }
+            return isMoveSuccessful;
+        }      
+
+        #endregion
+
+        #region Private Methods
+
         private bool isMoveValid(Player iPlayer, Move iMove)
         {
             Square currentSquare;
@@ -162,7 +205,50 @@ namespace GameLogic
             return !isDirectionOkay;
         }
 
+        private void changeBoardByMove(Player iPlayer, Move iMove)
+        {
+            Square currentSquare, nextSquare;
+            Move moveDirection = new Move(0, 0);
 
+            // Check surrounding neighbors
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    moveDirection.Row = i;
+                    moveDirection.Column = j;
+
+                    // ignore invalid squares
+                    if (!IsNeighborOkay(iMove, moveDirection))
+                    {
+                        continue;
+                    }
+
+                    // ignore already owned squares
+                    if (iPlayer == mBoard[iMove.Row + i, iMove.Column + j].Owner)
+                    {
+                        continue;
+                    }
+
+                    if (isMoveValidInDirection(iPlayer, iMove, moveDirection))
+                    {
+                        int currentRow = iMove.Row, currentColumn = iMove.Column;
+                        do
+                        {
+                            // Advance in direction
+                            currentRow += moveDirection.Row;
+                            currentColumn += moveDirection.Column;
+                            currentSquare = mBoard[currentRow, currentColumn];
+                            nextSquare = mBoard[currentRow + moveDirection.Row, currentColumn + moveDirection.Column];
+                            mBoard[currentRow, currentColumn].Owner = iPlayer;
+                        }
+                        while (nextSquare.Owner != iPlayer);
+                    }
+                }
+            }
+        }
+
+        #endregion
 
     }
 }
