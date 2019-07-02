@@ -10,6 +10,7 @@ namespace GameLogic
     {
         private Player mOwner;
 
+        #region Constructors
         public Square(Player iOwner)
         {
             this.mOwner = iOwner;
@@ -19,6 +20,7 @@ namespace GameLogic
         {
             this.mOwner = null;
         }
+        #endregion
 
         public Player Owner { get; set; }
 
