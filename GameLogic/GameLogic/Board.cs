@@ -37,6 +37,22 @@ namespace GameLogic
             mBoard[xCenter, yCenter + 1] = new Square(iPlayer2);
             mBoard[xCenter + 1, yCenter] = new Square(iPlayer2);
             mBoard[xCenter + 1, yCenter + 1] = new Square(iPlayer1);
-        }       
+        }
+
+        public bool IsInBounds(int i_Row, int i_Column)
+        {
+            const bool isOnBoard = true;
+
+            if (i_Row < 0 || i_Row > rBoardSize - 1)
+            {
+                return !isOnBoard;
+            }
+            else if (i_Column < 0 || i_Column > rBoardSize - 1)
+            {
+                return !isOnBoard;
+            }
+
+            return isOnBoard;
+        }
     }
 }
