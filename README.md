@@ -1,4 +1,4 @@
 # Reversi
 
-![Gameplay](https://raw.githubusercontent.com/OhadVal/Reversi/master/ReversiGamePlay.png)
-![GameSettings](https://raw.githubusercontent.com/OhadVal/Reversi/master/ReversiSettings.png)
+![Gameplay](https://raw.githubusercontent.com/OhadVal/Reversi/master/ReversiGamePlay.png?token=AKC3YYYGHV7MUSR5RG232L25DTF2O)
+![GameSettings](https://raw.githubusercontent.com/OhadVal/Reversi/master/ReversiSettings.png?token=AKC3YY723EB5U3G7GEZH5EK5DTF2Q)
