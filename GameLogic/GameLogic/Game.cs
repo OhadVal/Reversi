@@ -14,7 +14,14 @@ namespace GameLogic
         private bool mIsVSComputer;
         private Board mBoard;
         private int mNumOfMovesPlayed;
+        private eCurrentPlayer mCurrentPlayer;
         #endregion
+
+        private enum eCurrentPlayer
+        {
+            Player1,
+            Player2
+        }
 
         #region Properties
         public Player Player1 { get => mPlayer1;}
@@ -31,6 +38,7 @@ namespace GameLogic
             this.mIsVSComputer = iIsVSComputer;
             this.mBoard = iBoard;
             this.mNumOfMovesPlayed = 0;
+            this.mCurrentPlayer = eCurrentPlayer.Player1;
         }
 
         #region Public Methods
@@ -64,6 +72,28 @@ namespace GameLogic
                 }
             }
             return !isGameOver;
+        }
+
+        public void StartGame()
+        {
+            if(mIsVSComputer)
+            {
+                PlayVSComputer();
+            }
+            else
+            {
+                PlayVSHuman();
+            }
+        }
+
+        private void PlayVSHuman()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PlayVSComputer()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
