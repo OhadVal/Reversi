@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameLogic
 {
-    class Board
+    public class Board
     {
         private readonly int rBoardSize;
         private Square[,] mBoard;
@@ -17,14 +17,14 @@ namespace GameLogic
             this.rBoardSize = iBoardSize;
         }
 
-        public int Size { get;}
-        public Square[,] MyBoard { get;}
+        public int Size { get { return rBoardSize; } }
+        public Square[,] MyBoard { get { return mBoard; } }
 
         public Square this[Move move]
         {
             get
             {
-                return m_Board[move.Row, move.Column];
+                return mBoard[move.Row, move.Column];
             }
         }
 
@@ -43,13 +43,13 @@ namespace GameLogic
             int xCenter = (rBoardSize - 1) / 2;
             int yCenter = (rBoardSize - 1) / 2;
 
-            mBoard[xCenter, yCenter] = new Square(iPlayer1);
-            mBoard[xCenter, yCenter + 1] = new Square(iPlayer2);
-            mBoard[xCenter + 1, yCenter] = new Square(iPlayer2);
-            mBoard[xCenter + 1, yCenter + 1] = new Square(iPlayer1);
+            mBoard[xCenter, yCenter].Owner = iPlayer1;
+            mBoard[xCenter, yCenter + 1].Owner =  iPlayer2;
+            mBoard[xCenter + 1, yCenter].Owner =  iPlayer2;
+            mBoard[xCenter + 1, yCenter + 1].Owner =  iPlayer1;
         }
 
-        public bool IsInBounds(int iRow, int iColumn)
+        public bool IsInBounds(int iRow, int iCol)
         {
             const bool isOnBoard = true;
 
@@ -57,7 +57,7 @@ namespace GameLogic
             {
                 return !isOnBoard;
             }
-            else if (iColumn < 0 || iColumn > rBoardSize - 1)
+            else if (iCol < 0 || iCol > rBoardSize - 1)
             {
                 return !isOnBoard;
             }
@@ -72,7 +72,7 @@ namespace GameLogic
             int desiredColumn = iMove.Column + iMoveDirection.Column;
 
             if ((iMoveDirection.Row == 0 && iMoveDirection.Column == 0) ||
-                !IsInBounds(desiredRow, desiredColumn))
+                !IsInBounds(desiredRow, desiredColumn)) 
             {
                 return !isOkay;
             }

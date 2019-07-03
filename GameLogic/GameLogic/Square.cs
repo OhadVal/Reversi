@@ -6,23 +6,30 @@ using System.Threading.Tasks;
 
 namespace GameLogic
 {
-    class Square
+    public struct Square
     {
         private Player mOwner;
 
         #region Constructors
-        public Square(Player iOwner)
+        public Square(Player iOwner) : this()
         {
             this.mOwner = iOwner;
         }
 
-        public Square()
-        {
-            this.mOwner = null;
-        }
         #endregion
 
-        public Player Owner { get; set; }
+        public Player Owner
+        {
+            get
+            {
+                return mOwner;
+            }
+
+            set
+            {
+                mOwner = value;
+            }
+        }
 
         public bool IsEmpty()
         {
