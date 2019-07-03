@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameLogic
 {
-    class Game
+    public class Game
     {
         #region Data Memebers
         private readonly Player mPlayer1;
@@ -14,7 +14,8 @@ namespace GameLogic
         private bool mIsVSComputer;
         private Board mBoard;
         private int mNumOfMovesPlayed;
-        #endregion
+        private eCurrentPlayer mCurrentPlayer;
+        #endregion        
 
         #region Properties
         public Player Player1 { get => mPlayer1;}
@@ -22,6 +23,20 @@ namespace GameLogic
         public bool IsVSComputer { get => mIsVSComputer;}
         public Board GameBoard { get => mBoard; }
         public int NumOfMovesPlayed { get => mNumOfMovesPlayed; set => mNumOfMovesPlayed = value; }
+        public Player CurrentPlayer
+        {
+            get
+            {
+                if (mCurrentPlayer == eCurrentPlayer.Player1)
+                {
+                    return mPlayer1;
+                }
+                else
+                {
+                    return mPlayer2;
+                }
+            }
+        }
         #endregion
 
         public Game(Player iPlayer1, Player iPlayer2, bool iIsVSComputer, Board iBoard)
@@ -31,19 +46,20 @@ namespace GameLogic
             this.mIsVSComputer = iIsVSComputer;
             this.mBoard = iBoard;
             this.mNumOfMovesPlayed = 0;
+            this.mCurrentPlayer = eCurrentPlayer.Player1;
         }
 
         #region Public Methods
-        public void PlayTurn(Player ioPlayer, Move iMoveToPlay)
+        public void PlayTurn(Player iPlayer, Move iMoveToPlay)
         {
-            mBoard.PlayMove(ioPlayer, iMoveToPlay);            
+            mBoard.PlayMove(iPlayer, iMoveToPlay);            
             mNumOfMovesPlayed++;
         }
 
-        public void PlayComputerTurn(Player ioComputer)
-        {
-            Move moveToPlay = getComputerMove(ioComputer);
-            mBoard.PlayMove(ioComputer, moveToPlay);
+        public void PlayComputerTurn(Player iComputer)
+        {            
+            Move moveToPlay = getComputerMove(iComputer);
+            mBoard.PlayMove(iComputer, moveToPlay);
             mNumOfMovesPlayed++;
         }
 
@@ -65,6 +81,49 @@ namespace GameLogic
             }
             return !isGameOver;
         }
+
+        public void StartNewGame()
+        {
+            mNumOfMovesPlayed = 0;
+            mCurrentPlayer = eCurrentPlayer.Player1;
+            mBoard.InitializeBoard(mPlayer1, mPlayer2);
+        }
+
+        public void ChangePlayer()
+        {
+            if (mCurrentPlayer == eCurrentPlayer.Player1)
+            {
+                mCurrentPlayer = eCurrentPlayer.Player2;
+            }
+            else
+            {
+                mCurrentPlayer = eCurrentPlayer.Player1;
+            }
+        }
+
+        public Player GetPlayer(eCurrentPlayer iPlayer)
+        {
+            if (iPlayer == eCurrentPlayer.Player1)
+            {
+                return mPlayer1;
+            }
+            else
+            {
+                return mPlayer2;
+            }
+        }
+
+        public Player GetOtherPlayer(eCurrentPlayer iPlayer)
+        {
+            if (iPlayer == eCurrentPlayer.Player1)
+            {
+                return mPlayer2;
+            }
+            else
+            {
+                return mPlayer1;
+            }
+        }
         #endregion
 
         #region Private Methods
@@ -74,8 +133,9 @@ namespace GameLogic
             Random random = new Random();
             int randomMove = random.Next(0, possibleMoves.Count);
             return possibleMoves[randomMove];
-        }
-
+        }       
         #endregion
     }
 }
+
+

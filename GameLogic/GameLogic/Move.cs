@@ -17,13 +17,36 @@ namespace GameLogic
             this.mColumn = iColumn;
         }
 
-        public int Row { get; set; }       
-
-        public int Column { get; set; }
-
-        public static Move operator +(Move i_Move, Move i_OtherMove)
+        public int Row
         {
-            return new Move(i_Move.Row + i_OtherMove.Row, i_Move.Column + i_OtherMove.Column);
+            get
+            {
+                return mRow;
+            }
+
+            set
+            {
+                mRow = value;
+            }
+        }
+
+        public int Column
+        {
+            get
+            {
+                return mColumn;
+            }
+
+            set
+            {
+                mColumn = value;
+            }
+        }
+
+
+        public static Move operator +(Move iMove, Move iOtherMove)
+        {
+            return new Move(iMove.Row + iOtherMove.Row, iMove.Column + iOtherMove.Column);
         }
     }
 }

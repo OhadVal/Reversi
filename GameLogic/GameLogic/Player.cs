@@ -18,7 +18,7 @@
             this.rName = iName;
         }
 
-        public string Name { get; set; }
+        public string Name { get { return rName; }  }
 
         public override bool Equals(object obj)
         {
